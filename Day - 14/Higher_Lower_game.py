@@ -6,11 +6,10 @@
 # Compare the followers of A and B
 # Initialize variable score = 0
 # If true : A = B and B = random and score =+ 1
+# Switch accounts A = B, after correct answers
 # If False : Sorry, that's wrong. Final score: 0
 
 import random
-from lib2to3.fixer_util import String
-
 import art
 from game_data import data
 
@@ -20,28 +19,33 @@ score = 0
 
 def compare_followers(a,b):
     if a['follower_count'] > b['follower_count']:
+
         return 'A'
     else:
         return 'B'
-game_is_over = 1
-while game_is_over != 0:
+
+print(art.logo)
+
+while True:
+
     print(f"Compare A : {A['name']}, a {A['description']}, from {A['country']}")
-    print(f"Compare A : {B['name']}, a {B['description']}, from {B['country']}")
+    print(art.vs)
+    print(f"Against B : {B['name']}, a {B['description']}, from {B['country']}")
     greater = compare_followers(A, B)
     print("Greater: ", greater)
-    answer = String(input("Who has more followers? Type 'A' or 'B': "))
+    answer = input("Who has more followers? Type 'A' or 'B': ")
 
     if greater == answer :
-        A = greater
+        print("\n" * 20)
+        print(art.logo)
         score += 1
+        print(f"You are right! current score : {score}.")
+
+        A = B
         B = random.choice(data)
+        if A == B:
+            B = random.choice(data)
+
     else :
         print(f"Sorry, that's wrong. Final score: {score}")
         break
-
-
-
-# if A == B:
-#     print(True)
-# else:
-#     print(False)
